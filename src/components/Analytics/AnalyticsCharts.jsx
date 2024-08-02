@@ -33,7 +33,7 @@ const LoadingOrError = styled.div`
 
 function Chart({ title, data }) {
 
-  if (data == undefined && title == undefined)
+  if (data === undefined && title === undefined)
     return <div></div>
   if (!data || !data.labels || !data.datasets) {
       console.log(data, title)

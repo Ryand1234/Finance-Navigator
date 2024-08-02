@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TransactionForm from './TransactionForm';
-import TransactionFilter from './TransactionFilter';
+// import TransactionFilter from './TransactionFilter';
 import { useTransactions } from '../../hooks/useTransactions';
 import AIAssistant from '../AIAssistant/AIAssistant';
-import { useAIAssistant } from '../../hooks/useAIAssistant';
+// import { useAIAssistant } from '../../hooks/useAIAssistant';
 
 
 
@@ -15,14 +15,6 @@ const TransactionListContainer = styled.div`
   padding: 20px;
 `;
 
-const TransactionItem = styled.div`
-  background: white;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-`;
 
 
 
@@ -31,8 +23,6 @@ function TransactionList() {
   const { transactions, addTransaction } = useTransactions();
   const [filter, setFilter] = useState({});
   const [showPopup, setShowPopup] = useState(false);
-  const { getAdvice } = useAIAssistant();
-
 
   const handleFilterChange = (field, value) => {
     const newFilter = { ...filter, [field]: value };

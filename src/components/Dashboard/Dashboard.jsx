@@ -5,7 +5,6 @@ import OverviewCard from './OverviewCard';
 import AIAssistant from '../AIAssistant/AIAssistant';
 import { ExpenseVsTimeChart, SavingsRemainingChart } from '../Analytics/AnalyticsCharts';
 import { useTransactions } from '../../hooks/useTransactions';
-import { useAIAssistant } from '../../hooks/useAIAssistant';
 import { useAnalytics } from '../../hooks/useAnalytics';
 
 const DashboardContainer = styled.div`
@@ -28,7 +27,7 @@ const ChartsContainer = styled.div`
 `;
 
 function Dashboard() {
-  const { transactions, totalBalance, totalIncome, totalExpenses } = useTransactions();
+  const { totalBalance, totalIncome, totalExpenses } = useTransactions();
   const { expenseVsTimeData, savingsRemainingData } = useAnalytics();
 const aiAssistantData = {
     balance: totalBalance,

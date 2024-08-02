@@ -18,7 +18,8 @@ function AIAssistant({ context, data }) {
     let isMounted = true;
     const fetchAdvice = async () => {
       try {
-        const newAdvice = await getAdvice(context, data);
+          let jsonData = JSON.stringify(data)
+        const newAdvice = await getAdvice(context, jsonData);
         if (isMounted) {
           setAdvice(newAdvice);
         }
@@ -32,7 +33,7 @@ function AIAssistant({ context, data }) {
     return () => {
       isMounted = false;
     };
-  }, [context, JSON.stringify(data), getAdvice]);
+  }, [context, data, getAdvice]);
 
   if (isLoading) return <div>Loading advice...</div>;
   if (error) return <div>Error loading advice: {error.message}</div>;

@@ -1,29 +1,29 @@
 // src/services/api.js
-
-const API_BASE_URL = 'https://api.yourfinanceapp.com'; // Replace with your actual API URL
-
-// Helper function for API calls
-async function apiCall(endpoint, method = 'GET', data = null) {
-  const options = {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-      // Add any authentication headers here if needed
-    },
-  };
-
-  if (data) {
-    options.body = JSON.stringify(data);
-  }
-
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
-
-  if (!response.ok) {
-    throw new Error(`API call failed: ${response.status} ${response.statusText}`);
-  }
-
-  return response.json();
-}
+//
+//const API_BASE_URL = 'https://api.yourfinanceapp.com'; // Replace with your actual API URL
+//
+//// Helper function for API calls
+//async function apiCall(endpoint, method = 'GET', data = null) {
+//  const options = {
+//    method,
+//    headers: {
+//      'Content-Type': 'application/json',
+//      // Add any authentication headers here if needed
+//    },
+//  };
+//
+//  if (data) {
+//    options.body = JSON.stringify(data);
+//  }
+//
+//  const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+//
+//  if (!response.ok) {
+//    throw new Error(`API call failed: ${response.status} ${response.statusText}`);
+//  }
+//
+//  return response.json();
+//}
 
 // Transactions
 //export const getTransactions = () => apiCall('/transactions');
@@ -44,56 +44,56 @@ async function apiCall(endpoint, method = 'GET', data = null) {
 // You can add more API functions here as needed
 
 // For development/testing purposes, you might want to add mock data:
-const MOCK_DATA = {
-  transactions: [
-    { id: 1, description: 'Salary', amount: 5000, type: 'income', date: '2023-08-01' },
-    { id: 2, description: 'Rent', amount: 1500, type: 'expense', date: '2023-08-05' },
-    // Add more mock transactions...
-  ],
-  accountSummary: {
-    totalBalance: 10000,
-    totalIncome: 15000,
-    totalExpenses: 5000,
-  },
-  analyticsData: {
-    expenseVsTime: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'Expenses',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
-        }
-      ]
-    },
-    savingsRemaining: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-          datasets: [
-            {
-              label: 'Savings',
-              data: [65, 59, 80, 81, 96, 55, 40],
-              fill: true,
-              borderColor: 'rgb(75, 192, 192)',
-              tension: 0.1
-            }
-          ]
-        },
-  },
-  forecastData: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'Forcast',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
-        }
-      ]
-    },
-};
+//const MOCK_DATA = {
+//  transactions: [
+//    { id: 1, description: 'Salary', amount: 5000, type: 'income', date: '2023-08-01' },
+//    { id: 2, description: 'Rent', amount: 1500, type: 'expense', date: '2023-08-05' },
+//    // Add more mock transactions...
+//  ],
+//  accountSummary: {
+//    totalBalance: 10000,
+//    totalIncome: 15000,
+//    totalExpenses: 5000,
+//  },
+//  analyticsData: {
+//    expenseVsTime: {
+//      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//      datasets: [
+//        {
+//          label: 'Expenses',
+//          data: [65, 59, 80, 81, 56, 55, 40],
+//          fill: false,
+//          borderColor: 'rgb(75, 192, 192)',
+//          tension: 0.1
+//        }
+//      ]
+//    },
+//    savingsRemaining: {
+//          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//          datasets: [
+//            {
+//              label: 'Savings',
+//              data: [65, 59, 80, 81, 96, 55, 40],
+//              fill: true,
+//              borderColor: 'rgb(75, 192, 192)',
+//              tension: 0.1
+//            }
+//          ]
+//        },
+//  },
+//  forecastData: {
+//      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//      datasets: [
+//        {
+//          label: 'Forcast',
+//          data: [65, 59, 80, 81, 56, 55, 40],
+//          fill: false,
+//          borderColor: 'rgb(75, 192, 192)',
+//          tension: 0.1
+//        }
+//      ]
+//    },
+//};
 
 // Uncomment these lines to use mock data (for development/testing)
 
