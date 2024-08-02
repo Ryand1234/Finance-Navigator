@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const OverviewCard = ({ balance, income, expenses }) => {
   return (
     <div style={styles.card}>
+      <h2 style={styles.title}>Financial Overview</h2>
       <div style={styles.section}>
         <h3>Balance</h3>
         <p>{balance}</p>
@@ -25,10 +26,15 @@ const styles = {
     border: '1px solid #ccc',
     borderRadius: '8px',
     padding: '16px',
-    maxWidth: '300px',
-    margin: '0 auto',
+  },
+  title: {
+    textAlign: 'center',
+    marginBottom: '16px',
   },
   section: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexDirection: 'row',
     marginBottom: '12px',
   }
 };

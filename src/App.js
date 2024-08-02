@@ -8,12 +8,14 @@ import { ThemeProvider } from 'styled-components';
 import Dashboard from './components/Dashboard/Dashboard';
 import TransactionList from './components/Transactions/TransactionList';
 import AnalyticsCharts from './components/Analytics/AnalyticsCharts';
-//import GlobalStyles from './styles/globalStyles';
+import GlobalStyles from './styles/globalStyles';
 import theme from './styles/theme';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
+           <GlobalStyles />
           <Router>
             <Routes>
               <Route path="/" element={<Dashboard />} />

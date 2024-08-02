@@ -10,8 +10,8 @@ import AIAssistant from '../AIAssistant/AIAssistant';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const ChartsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   padding: 20px;
 `;
@@ -33,7 +33,6 @@ const LoadingOrError = styled.div`
 
 function Chart({ title, data }) {
 
-  console.log(title, data)
   if (data == undefined && title == undefined)
     return <div></div>
   if (!data || !data.labels || !data.datasets) {
@@ -50,7 +49,6 @@ function Chart({ title, data }) {
 }
 
 export function ExpenseVsTimeChart({ data }) {
-    console.log("D: ", data)
     return <Chart title="Expenses vs Time" data={data} />
 }
 
@@ -68,6 +66,8 @@ function AnalyticsCharts() {
 
   return (
     <ChartsContainer>
+      <h1 style={styles.heading}>Analytics Dashboard</h1>
+      <i style={styles.subHeading}>View your financial performance over time</i>
       <div>
         <Chart title="Expenses vs Time" data={expenseVsTimeData} />
         <Chart title="Savings Remaining vs Time" data={savingsRemainingData} />
@@ -82,4 +82,17 @@ function AnalyticsCharts() {
   );
 }
 
+const styles = {
+  heading: {
+    textAlign: 'center',
+    margin: '20px 0 0 0',
+    fontSize: '2em',
+  },
+  subHeading: {
+    textAlign: 'center',
+    marginBottom: '30px',
+    fontSize: '1.2em',
+    color: '#666',
+  },
+};
 export default AnalyticsCharts;

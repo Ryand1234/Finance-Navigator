@@ -9,8 +9,8 @@ import { useAIAssistant } from '../../hooks/useAIAssistant';
 import { useAnalytics } from '../../hooks/useAnalytics';
 
 const DashboardContainer = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   padding: 20px;
 `;
@@ -22,8 +22,8 @@ const MainContent = styled.div`
 `;
 
 const ChartsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 `;
 
@@ -38,6 +38,7 @@ const aiAssistantData = {
   return (
     <DashboardContainer>
       <MainContent>
+        <h1 style={styles.heading}>Overview of Financial Data</h1>
         <OverviewCard
           balance={totalBalance}
           income={totalIncome}
@@ -59,4 +60,12 @@ const aiAssistantData = {
   );
 }
 
+
+const styles = {
+  heading: {
+    textAlign: 'center',
+    margin: '20px 0 0 0',
+    fontSize: '2em',
+  },
+};
 export default Dashboard;
