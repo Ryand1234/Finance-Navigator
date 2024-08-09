@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getTransactions, addTransaction as apiAddTransaction } from '../services/api';
+import { getTransactions, addTransaction as apiAddTransaction } from '../services/api'; // Ensure these are compatible with ReactJS
 
 export function useTransactions() {
   const [transactions, setTransactions] = useState([]);
@@ -26,15 +26,16 @@ export function useTransactions() {
     let expenses = 0;
 
     transactionData.forEach(transaction => {
-       let transactionAmount;
+      let transactionAmount;
 
       if (typeof transaction.amount === 'string') {
-          transactionAmount = parseFloat(transaction.amount); // Convert to integer if it's a string
-      } else if (typeof transaction.amount === 'number' && !Number.isInteger(transaction.amount)) {
-          transactionAmount = transaction.amount; // Already an integer
+        transactionAmount = parseFloat(transaction.amount); // Convert to float if it's a string
+      } else if (typeof transaction.amount === 'number') {
+        transactionAmount = transaction.amount; // Already a number
       } else {
-          transactionAmount = 0; // Handle other types as needed
+        transactionAmount = 0; // Handle other types as needed
       }
+
       if (transaction.type === 'income') {
         income += transactionAmount;
       } else {
@@ -63,6 +64,6 @@ export function useTransactions() {
     totalIncome,
     totalExpenses,
     addTransaction,
-    fetchTransactions
+    fetchTransactions,
   };
 }

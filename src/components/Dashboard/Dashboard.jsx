@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import OverviewCard from './OverviewCard';
 // import RecentTransactions from './RecentTransactions';
@@ -27,13 +27,19 @@ const ChartsContainer = styled.div`
 `;
 
 function Dashboard() {
+  const [isExpanseModalVisible, setIsExpanseModalVisible] = useState(false);
+  const [isSavingModalVisible, setIsSavingModalVisible] = useState(false);
   const { totalBalance, totalIncome, totalExpenses } = useTransactions();
-  const { expenseVsTimeData, savingsRemainingData } = useAnalytics();
+  const { expenseVsTimeData, savingsRemainingData, refreshData } = useAnalytics();
 const aiAssistantData = {
     balance: totalBalance,
     income: totalIncome,
     expenses: totalExpenses,
   };
+
+    useCallback(() => {
+      refreshData();
+    }, [])
   return (
     <DashboardContainer>
       <MainContent>
@@ -44,8 +50,7 @@ const aiAssistantData = {
           expenses={totalExpenses}
         />
         <ChartsContainer>
-          <ExpenseVsTimeChart data={expenseVsTimeData} />
-          <SavingsRemainingChart data={savingsRemainingData} />
+            <ExpenseVsTimeChart data={expenseVsTimeData} isModalVisible={isExpanseModalVisible} setIsModalVisible={setIsExpanseModalVisible} />
         </ChartsContainer>
 {/* //         <RecentTransactions transactions={transactions.slice(0, 5)} /> */}
       </MainContent>

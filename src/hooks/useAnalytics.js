@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAnalyticsData, getForecastData } from '../services/api';
+import { getAnalyticsData, getForecastData } from '../services/api'; // Make sure this service is compatible with ReactJS
 
 export function useAnalytics() {
   const [expenseVsTimeData, setExpenseVsTimeData] = useState(null);
@@ -7,8 +7,6 @@ export function useAnalytics() {
   const [expenseForecastData, setExpenseForecastData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-
 
   useEffect(() => {
     async function fetchData() {
@@ -60,6 +58,6 @@ export function useAnalytics() {
     expenseForecastData,
     isLoading,
     error,
-    refreshData
+    refreshData,
   };
 }

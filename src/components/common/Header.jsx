@@ -10,6 +10,7 @@ const Header = () => {
           <li><Link to="/" style={styles.navItem}>Home</Link></li>
           <li><Link to="/analytics" style={styles.navItem}>Analytics</Link></li>
           <li><Link to="/transactions" style={styles.navItem}>Transactions</Link></li>
+          <li><Link to="/profile" style={styles.navItem}>Profile</Link></li>
         </ul>
       </nav>
     </header>
@@ -19,6 +20,7 @@ const Header = () => {
 const styles = {
   header: {
     padding: '20px',
+    paddingTop: '5vh',
     backgroundColor: '#007bff',
     color: '#fff',
     textAlign: 'center',
@@ -30,6 +32,7 @@ const styles = {
   navList: {
     listStyleType: 'none',
     padding: 0,
+    paddingTop: '10px',
     margin: 0,
     display: 'flex',
     justifyContent: 'center',

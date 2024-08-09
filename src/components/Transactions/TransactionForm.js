@@ -5,49 +5,57 @@ const TransactionForm = ({ onSubmit, onClose }) => {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('income');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ amount, description, type, date });
+  const handleSubmit = () => {
+    if (!amount || !description || !date) {
+      alert('Please fill all fields.');
+      return;
+    }
+    onSubmit({ amount: parseFloat(amount), description, type, date });
     setAmount('');
     setDescription('');
     setType('income');
-    setDate('');
+    setDate(new Date().toISOString().split('T')[0]);
     onClose();
+  };
+
+  const handleDateChange = (event) => {
+    setDate(event.target.value);
   };
 
   return (
     <div style={styles.popupOverlay}>
       <div style={styles.popupContent}>
         <h2 style={styles.header}>Add Transaction</h2>
-        <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.form}>
           <div style={styles.inputGroup}>
-            <label htmlFor="amount">Amount</label>
+            <label>Amount</label>
             <input
               type="number"
-              id="amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
+              style={styles.input}
               required
             />
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="description">Description</label>
+            <label>Description</label>
             <input
               type="text"
-              id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              style={styles.input}
               required
             />
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="type">Type</label>
+            <label>Type</label>
             <select
-              id="type"
               value={type}
               onChange={(e) => setType(e.target.value)}
+              style={styles.input}
               required
             >
               <option value="income">Income</option>
@@ -55,18 +63,23 @@ const TransactionForm = ({ onSubmit, onClose }) => {
             </select>
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="date">Date</label>
+            <label>Date</label>
             <input
               type="date"
-              id="date"
               value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
+              onChange={handleDateChange}
+              style={styles.input}
             />
           </div>
-          <button type="submit" style={styles.button}>Add Transaction</button>
-          <button type="button" onClick={onClose} style={{ ...styles.button, background: '#ccc', marginLeft: '10px' }}>Cancel</button>
-        </form>
+          <div style={styles.buttonContainer}>
+            <button onClick={handleSubmit} style={styles.submitButton}>
+              Add Transaction
+            </button>
+            <button onClick={onClose} style={styles.cancelButton}>
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -88,14 +101,15 @@ const styles = {
     backgroundColor: '#fff',
     padding: '20px',
     borderRadius: '8px',
-    width: '400px',
-    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-    display: 'flex',
-    flexDirection: 'column'
+    width: '80%',
+    maxWidth: '400px',
+    boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
   },
   header: {
     textAlign: 'center',
     marginBottom: '20px',
+    fontSize: '24px',
+    fontWeight: 'bold',
   },
   form: {
     display: 'flex',
@@ -103,18 +117,33 @@ const styles = {
   },
   inputGroup: {
     marginBottom: '15px',
-    display: 'flex',
-    justifyContent: 'space-between'
   },
-  button: {
-    padding: '10px 20px',
-    border: 'none',
+  input: {
+    width: '100%',
+    padding: '10px',
     borderRadius: '4px',
-    background: '#007bff',
-    color: '#fff',
-    cursor: 'pointer',
+    border: '1px solid #ccc',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
     marginTop: '10px',
-  }
+  },
+  submitButton: {
+    backgroundColor: '#28a745',
+    color: '#fff',
+    padding: '10px',
+    borderRadius: '4px',
+    border: 'none',
+    cursor: 'pointer',
+  },
+  cancelButton: {
+    backgroundColor: '#ccc',
+    padding: '10px',
+    borderRadius: '4px',
+    border: 'none',
+    cursor: 'pointer',
+  },
 };
 
 TransactionForm.propTypes = {

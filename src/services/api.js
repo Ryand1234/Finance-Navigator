@@ -44,56 +44,7 @@
 // You can add more API functions here as needed
 
 // For development/testing purposes, you might want to add mock data:
-//const MOCK_DATA = {
-//  transactions: [
-//    { id: 1, description: 'Salary', amount: 5000, type: 'income', date: '2023-08-01' },
-//    { id: 2, description: 'Rent', amount: 1500, type: 'expense', date: '2023-08-05' },
-//    // Add more mock transactions...
-//  ],
-//  accountSummary: {
-//    totalBalance: 10000,
-//    totalIncome: 15000,
-//    totalExpenses: 5000,
-//  },
-//  analyticsData: {
-//    expenseVsTime: {
-//      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//      datasets: [
-//        {
-//          label: 'Expenses',
-//          data: [65, 59, 80, 81, 56, 55, 40],
-//          fill: false,
-//          borderColor: 'rgb(75, 192, 192)',
-//          tension: 0.1
-//        }
-//      ]
-//    },
-//    savingsRemaining: {
-//          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//          datasets: [
-//            {
-//              label: 'Savings',
-//              data: [65, 59, 80, 81, 96, 55, 40],
-//              fill: true,
-//              borderColor: 'rgb(75, 192, 192)',
-//              tension: 0.1
-//            }
-//          ]
-//        },
-//  },
-//  forecastData: {
-//      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//      datasets: [
-//        {
-//          label: 'Forcast',
-//          data: [65, 59, 80, 81, 56, 55, 40],
-//          fill: false,
-//          borderColor: 'rgb(75, 192, 192)',
-//          tension: 0.1
-//        }
-//      ]
-//    },
-//};
+//const MOCK_DATA = {l
 
 // Uncomment these lines to use mock data (for development/testing)
 
@@ -103,78 +54,84 @@
 //export const getForecastData = () => Promise.resolve(MOCK_DATA.forecastData);
 //export const getAIAdvice = () => Promise.resolve("This is mock AI advice.");
 
-
-// src/services/api.js
-
+// Import necessary libraries (you may need a charting library like Chart.js)
 const LOCAL_STORAGE_KEY = 'financeAppData';
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Auguest', 'September',
-    'October', 'November', 'December'
-]
-const zero_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const zero_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+
 const BASE_ANALYTICS_DATA = {
   expenseVsTime: {
-      labels: months,
-      datasets: [
-        {
-          label: 'Expenses',
-          data: zero_data,
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
-        }
-      ]
-    },
-    savingsRemaining: {
-          labels: months,
-          datasets: [
-            {
-              label: 'Savings',
-              data: zero_data,
-              fill: true,
-              borderColor: 'rgb(75, 192, 192)',
-              tension: 0.1
-            }
-          ]
-        },
+    labels: months,
+    datasets: [
+      {
+        label: 'Expenses',
+        data: zero_data,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }
+    ]
+  },
+  savingsRemaining: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Savings',
+        data: zero_data,
+        fill: true,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }
+    ]
+  },
   forecastData: {
-      labels: months,
-      datasets: [
-        {
-          label: 'Forcast',
-          data: zero_data,
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
-        }
-      ]
-}
-};
-// Helper function to get data from local storage
-const getDataFromLocalStorage = () => {
-  const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-  return data ? JSON.parse(data) : { transactions: [], accountSummary: {}, analyticsData: {} };
+    labels: months,
+    datasets: [
+      {
+        label: 'Forecast',
+        data: zero_data,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }
+    ]
+  }
 };
 
-// Helper function to save data to local storage
+// Helper function to get data from localStorage
+const getDataFromLocalStorage = () => {
+  try {
+    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return data ? JSON.parse(data) : { transactions: [], accountSummary: {}, analyticsData: {} };
+  } catch (e) {
+    console.error('Error getting data from localStorage', e);
+    return { transactions: [], accountSummary: {}, analyticsData: {} };
+  }
+};
+
+// Helper function to save data to localStorage
 const saveDataToLocalStorage = (data) => {
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+  try {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.error('Error saving data to localStorage', e);
+  }
 };
 
 const getNumber = (amount) => {
   let transactionAmount;
 
   if (typeof amount === 'string') {
-      transactionAmount = parseFloat(amount); // Convert to integer if it's a string
-  } else if (typeof amount === 'number' && !Number.isInteger(amount)) {
-      transactionAmount = amount; // Already an integer
+    transactionAmount = parseFloat(amount); // Convert to integer if it's a string
+  } else if (typeof amount === 'number') {
+    transactionAmount = amount * 1.0; // Already an integer
   } else {
-      transactionAmount = 0.0; // Handle other types as needed
+    transactionAmount = 0.0; // Handle other types as needed
   }
-  return transactionAmount
-}
+  return transactionAmount;
+};
 
-
-// savings by month
+// Savings by month
 export const getCurrentMonthSavings = (monthIndex) => {
   const data = getDataFromLocalStorage();
   // Calculate account summary based on transactions
@@ -187,7 +144,7 @@ export const getCurrentMonthSavings = (monthIndex) => {
     return acc; // If not in current month, keep the accumulator unchanged
   }, 0);
   return getNumber(totalSavings);
-}
+};
 
 const updateChartData = (data, transaction) => {
   // Assuming you have chart data structure like this
@@ -201,20 +158,16 @@ const updateChartData = (data, transaction) => {
 
   // Update based on transaction type
   if (transaction.type === 'expense') {
-    console.log(data.analyticsData)
-    // Assuming each month has an index and expenses are added
     if (!data.analyticsData[year]) {
-      const currentMonthSavings = getCurrentMonthSavings(monthIndex)
+      const currentMonthSavings = getCurrentMonthSavings(monthIndex);
       data.analyticsData[year] = JSON.parse(JSON.stringify(BASE_ANALYTICS_DATA));
       data.analyticsData[year].savingsRemaining['datasets'][0]['data'][monthIndex] = getNumber(currentMonthSavings);
     }
     data.analyticsData[year].expenseVsTime['datasets'][0]['data'][monthIndex] += getNumber(transaction.amount);
     data.analyticsData[year].savingsRemaining['datasets'][0]['data'][monthIndex] -= getNumber(transaction.amount);
   } else if (transaction.type === 'income') {
-    // Similar logic for income
-    // Update income data if needed
     if (!data.analyticsData[year]) {
-      const currentMonthSavings = getCurrentMonthSavings(monthIndex)
+      const currentMonthSavings = getCurrentMonthSavings(monthIndex);
       data.analyticsData[year] = JSON.parse(JSON.stringify(BASE_ANALYTICS_DATA));
       data.analyticsData[year].savingsRemaining['datasets'][0]['data'][monthIndex] = getNumber(currentMonthSavings);
     }
@@ -227,7 +180,7 @@ const updateChartData = (data, transaction) => {
 // Transactions
 export const getTransactions = () => {
   const data = getDataFromLocalStorage();
-  return Promise.resolve(data.transactions);
+  return data.transactions;
 };
 
 export const addTransaction = (transaction) => {
@@ -236,7 +189,7 @@ export const addTransaction = (transaction) => {
   data.transactions.push(newTransaction);
   updateChartData(data, newTransaction);
   saveDataToLocalStorage(data);
-  return Promise.resolve(newTransaction);
+  return newTransaction;
 };
 
 // Account Summary
@@ -258,28 +211,35 @@ export const getAccountSummary = () => {
   const summary = { totalBalance, totalIncome, totalExpenses };
   data.accountSummary = summary;
   saveDataToLocalStorage(data);
-  return Promise.resolve(summary);
+  return summary;
 };
 
 // Analytics
 export const getAnalyticsData = () => {
   const data = getDataFromLocalStorage();
   const year = new Date().getFullYear();
+  // new app case when there is not data in localStorage
+  if(data.analyticsData[year] === undefined) {
+    return BASE_ANALYTICS_DATA;
+  }
   // Placeholder for analytics logic, can be enhanced later
-  return Promise.resolve(data.analyticsData[year]);
+  return data.analyticsData[year];
 };
 
 // Forecasting
 export const getForecastData = () => {
   const data = getDataFromLocalStorage();
   const year = new Date().getFullYear();
+  // new app case when there is not data in localStorage
+  if(data.analyticsData[year] === undefined) {
+    return BASE_ANALYTICS_DATA.forcastData;
+  }
   // Placeholder for forecasting logic, can be enhanced later
-  return Promise.resolve(data.analyticsData[year].forecastData);
+  return data.analyticsData[year].forecastData;
 };
 
 // AI Advice
 export const getAIAdvice = () => {
   // Placeholder for AI advice logic, can be enhanced later
-  return Promise.resolve("This is mock AI advice.");
+  return "This is mock AI advice.";
 };
-

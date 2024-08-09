@@ -1,6 +1,6 @@
 // src/hooks/useAIAssistant.js
 import { useState, useCallback, useRef } from 'react';
-import { getAIAdvice } from '../services/api';
+import { getAIAdvice } from '../services/api'; // Make sure this is compatible with ReactJS
 
 export function useAIAssistant() {
   const [isLoading, setIsLoading] = useState(false);
