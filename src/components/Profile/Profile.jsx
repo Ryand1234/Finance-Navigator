@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 const ProfilePage = () => {
   const [name, setName] = useState('');
@@ -7,6 +6,7 @@ const ProfilePage = () => {
   const [mobile, setMobile] = useState('');
   const [savingGoal, setSavingGoal] = useState('');
   const [expenseMeter, setExpenseMeter] = useState('');
+  const [startingBalance, setStartingBalance] = useState('');
   const [showClearTransactionsModal, setShowClearTransactionsModal] = useState(false);
   const [showDeleteDataModal, setShowDeleteDataModal] = useState(false);
 
@@ -17,6 +17,7 @@ const ProfilePage = () => {
       setMobile(localStorage.getItem('mobile') || '');
       setSavingGoal(localStorage.getItem('savingGoal') || '');
       setExpenseMeter(localStorage.getItem('expenseMeter') || '');
+      setStartingBalance(localStorage.getItem('startingBalance') || '');
     };
 
     loadProfile();
@@ -29,6 +30,7 @@ const ProfilePage = () => {
       localStorage.setItem('mobile', mobile);
       localStorage.setItem('savingGoal', savingGoal);
       localStorage.setItem('expenseMeter', expenseMeter);
+      localStorage.setItem('startingBalance', startingBalance);
       alert('Profile saved successfully');
     } catch (error) {
       alert('Error saving profile data');
@@ -74,6 +76,16 @@ const ProfilePage = () => {
           type="tel"
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
+          style={styles.input}
+        />
+      </div>
+      <div style={styles.inputGroup}>
+        <label>Starting Balance</label>
+        <input
+          type="number"
+          value={startingBalance}
+          onChange={(e) => setStartingBalance(e.target.value)}
+          disabled={startingBalance !== ''}
           style={styles.input}
         />
       </div>

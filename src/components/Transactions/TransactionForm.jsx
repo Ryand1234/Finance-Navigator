@@ -6,7 +6,6 @@ const TransactionForm = ({ onSubmit, onClose }) => {
   const [description, setDescription] = useState('');
   const [type, setType] = useState('income');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleSubmit = () => {
     if (!amount || !description || !date) {

@@ -50,6 +50,7 @@ export function useTransactions() {
 
   const addTransaction = async (newTransaction) => {
     try {
+    console.log(newTransaction)
       const addedTransaction = await apiAddTransaction(newTransaction);
       setTransactions(prevTransactions => [...prevTransactions, addedTransaction]);
       calculateTotals([...transactions, addedTransaction]);

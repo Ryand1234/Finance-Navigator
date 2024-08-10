@@ -16,14 +16,6 @@ const ChartsContainer = styled.div`
   padding: 20px;
 `;
 
-const ChartWrapper = styled.div`
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-`;
-
 const LoadingOrError = styled.div`
   text-align: center;
   padding: 20px;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import OverviewCard from './OverviewCard';
 // import RecentTransactions from './RecentTransactions';
 import AIAssistant from '../AIAssistant/AIAssistant';
-import { ExpenseVsTimeChart, SavingsRemainingChart } from '../Analytics/AnalyticsCharts';
+import { ExpenseVsTimeChart } from '../Analytics/AnalyticsCharts';
 import { useTransactions } from '../../hooks/useTransactions';
 import { useAnalytics } from '../../hooks/useAnalytics';
 
@@ -28,9 +28,8 @@ const ChartsContainer = styled.div`
 
 function Dashboard() {
   const [isExpanseModalVisible, setIsExpanseModalVisible] = useState(false);
-  const [isSavingModalVisible, setIsSavingModalVisible] = useState(false);
   const { totalBalance, totalIncome, totalExpenses } = useTransactions();
-  const { expenseVsTimeData, savingsRemainingData, refreshData } = useAnalytics();
+  const { expenseVsTimeData, refreshData } = useAnalytics();
 const aiAssistantData = {
     balance: totalBalance,
     income: totalIncome,
@@ -39,7 +38,7 @@ const aiAssistantData = {
 
     useCallback(() => {
       refreshData();
-    }, [])
+    }, [refreshData])
   return (
     <DashboardContainer>
       <MainContent>

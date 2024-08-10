@@ -183,9 +183,16 @@ export const getTransactions = () => {
   return data.transactions;
 };
 
+function generateUniqueId() {
+  const timestamp = Date.now();
+  const randomNum = Math.random().toString(36).substring(2, 8);
+  return `${timestamp}-${randomNum}`;
+}
+
 export const addTransaction = (transaction) => {
   const data = getDataFromLocalStorage();
-  const newTransaction = { ...transaction, id: Date.now() }; // Generate a unique ID based on timestamp
+  const newTransaction = { ...transaction, id: generateUniqueId() }; // Generate a unique ID based on timestamp
+  console.log(newTransaction)
   data.transactions.push(newTransaction);
   updateChartData(data, newTransaction);
   saveDataToLocalStorage(data);
@@ -195,10 +202,11 @@ export const addTransaction = (transaction) => {
 // Account Summary
 export const getAccountSummary = () => {
   const data = getDataFromLocalStorage();
+  const startingBalance = localStorage.getItem('startingBalance') || 0;
   // Calculate account summary based on transactions
   const totalBalance = data.transactions.reduce((acc, tx) => {
     return tx.type === 'income' ? acc + tx.amount : acc - tx.amount;
-  }, 0);
+  }, startingBalance);
 
   const totalIncome = data.transactions
     .filter((tx) => tx.type === 'income')
